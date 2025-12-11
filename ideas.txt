@@ -1,5 +1,12 @@
 Chess Notations:
 
 FEN
-SAN
-UCI
+~ Example: fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
+
+Idea:
+
+user will enter SAN Notation.
+It will be converted to FEN.
+Checks if is legal.
+converts back to SAN and displays it to the user
