@@ -59,6 +59,10 @@ def function(parameter: data_type) -> return data_type:
     --------
     ...
     
+    Raises:
+    -------
+    ...
+    
     Examples:
     ---------
     ...
