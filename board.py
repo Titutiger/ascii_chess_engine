@@ -1,6 +1,6 @@
 # base grid layout(not including any variables)
 """
-Charchters for grid
+Characters for grid
 ┌ ┐ └ ┘ ─ │ ├ ┤ ┬ ┴ ┼
 ╔ ╗ ╚ ╝ ═ ║ ╠ ╣ ╦ ╩ ╬
 ╒ ╓ ╕ ╖ ╘ ╙ ╛ ╜ ╞ ╟ ╡ ╢
@@ -9,12 +9,13 @@ Charchters for grid
 + - |
 Using these to form the grid
 """
-import os
+#import os
 
-def clrscr():
-    os.system('cls')
-clrscr()
-print("\n         A        B        C        D        E        F        G        H")    
+#def clrscr():
+#    os.system('cls')
+#clrscr()
+
+print("\n         A        B        C        D        E        F        G        H")
 print("     "+"┏━━━━━━━━"+"┳━━━━━━━━"*7+"┓")
 print("     "+"┃        "*8+"┃")
 print("  1  "+"┃        "*8+"┃")    
@@ -27,4 +28,3 @@ while i < 7:
     print("     "+"┃        "*8+"┃")
     i += 1
 print("     "+"┗━━━━━━━━" + "┻━━━━━━━━"*7+"┛")
-#the end
