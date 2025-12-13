@@ -3,22 +3,6 @@ import os
 import shutil
 from typing import Tuple, Optional
 
-def clear_screen() -> None:
-    """
-    Clear the terminal screen.
-
-    Clears the terminal screen using platform-appropriate commands.
-    Uses 'cls' on Windows and 'clear' on Unix-like systems.
-
-    Parameters
-    ----------
-    None
-
-    Returns
-    -------
-    None
-    """
-    os.system('cls' if os.name == 'nt' else 'clear')
 
 def get_terminal_size() -> Tuple[int, int]:
     """
@@ -131,7 +115,7 @@ def main() -> None:
             try:
                 move_str: str = input("> ").strip().lower()
 
-                if move_str == 'quit':
+                if move_str in ['q', 'quit', 'esc']:
                     return
 
                 # Check if move is legal FIRST (prevents parse_san error)
