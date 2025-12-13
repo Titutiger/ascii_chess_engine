@@ -1,6 +1,9 @@
 # This is a file to parce input strings from the user(s):
 
-def parse(string: str, type_: str = 'parse', ) -> str:
+#imports:
+import chess
+
+def parse(string_: str, type_: str = 'parse', ) -> str | None:
     """
     This function parses a string and returns it as a string.
     If `type_` is ACN, then this function will return FEN and vice versa.
@@ -26,14 +29,18 @@ def parse(string: str, type_: str = 'parse', ) -> str:
     :return:
     """
     if type_ == 'parse':
-        if string == "":
+        if string_ == "":
             ...
 
     elif type_ == 'ACN':
-        ...
+        board = chess.Board()
+        move = string_
+        board.push_san(move)
+        return board.fen()
     # return FEN
 
     elif type_ == 'FEN':
-        ...
+        fen = string_
+        board = chess.Board(fen)
     # return ACN
 
