@@ -5,6 +5,5 @@ __version__ = '0.0.1'
 __author__ = 'Aarin & Ojas'
 
 from .game import *
-from .rules import *
-from .parser import *
+from .utils import *
 
