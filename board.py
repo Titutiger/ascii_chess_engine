@@ -55,7 +55,7 @@ def board(style: str = 'solid') -> None:
                 ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
             ]
 
-            print("\n" + " " * 3 + "a b c d e f g h")
+            print("\n" + " " * 3 + "a  b  c  d  e  f  g  h")
             for row in range(8):
                 line = f"{8 - row} "
                 for col in range(8):
@@ -68,7 +68,7 @@ def board(style: str = 'solid') -> None:
                         # Light square
                         line += f"\033[48;2;220;180;130m\033[30m {piece} \033[0m"
                 print(line + f" {8 - row}")
-            print("   " + "a b c d e f g h" + "\n")
+            print("   " + "a  b  c  d  e  f  g  h" + "\n")
 
         print_chessboard()
 
