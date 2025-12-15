@@ -1,3 +1,4 @@
+"""
 import chess
 import os
 import shutil
@@ -5,7 +6,7 @@ from typing import Tuple, Optional
 
 
 def get_terminal_size() -> Tuple[int, int]:
-    """
+
     Get the current terminal dimensions.
 
     Retrieves the terminal width (columns) and height (rows) using
@@ -24,7 +25,7 @@ def get_terminal_size() -> Tuple[int, int]:
     ------
     OSError
         If terminal size cannot be determined
-    """
+
     try:
         columns, rows = shutil.get_terminal_size()
         return min(columns, 80), min(rows, 24)
@@ -32,7 +33,7 @@ def get_terminal_size() -> Tuple[int, int]:
         return 80, 24
 
 def print_board(board: chess.Board, term_width: int = 80, term_height: int = 24) -> None:
-    """
+
     Print a formatted, scaled chessboard to terminal.
 
     Displays the chessboard with alternating colored squares, piece symbols,
@@ -51,7 +52,7 @@ def print_board(board: chess.Board, term_width: int = 80, term_height: int = 24)
     Returns
     -------
     None
-    """
+
 
     print("\n" + "=" * term_width + "\n")  # Visual separator instead
 
@@ -89,7 +90,7 @@ def print_board(board: chess.Board, term_width: int = 80, term_height: int = 24)
     print("Enter move in ACN (e.g., 'e4', 'Nf3') or 'quit':")
 
 def main() -> None:
-    """
+
     Main game loop for 2-player terminal chess.
 
     Handles move input, validation, board updates, and game over conditions.
@@ -102,7 +103,7 @@ def main() -> None:
     Returns
     -------
     None
-    """
+
     board: chess.Board = chess.Board()
 
     while not board.is_game_over():
@@ -146,3 +147,4 @@ if __name__ == "__main__":
     print("Terminal Chess - 2 Player (Auto-scaling)")
     input("Press Enter to start...")
     main()
+"""

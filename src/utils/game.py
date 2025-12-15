@@ -2,7 +2,7 @@ import chess
 from typing import Optional
 
 from utils import get_terminal_size
-from board import print_board
+from src.utils.board import print_board
 
 
 def main(style: str = "simple") -> None:

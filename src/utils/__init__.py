@@ -6,4 +6,5 @@ __author__ = 'Aarin & Ojas'
 
 from .game import *
 from .utils import *
+from .board import *
 
