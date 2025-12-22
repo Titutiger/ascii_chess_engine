@@ -1,6 +1,22 @@
 import chess
 from typing import Optional
 
+"""
+ascii chess charchters
+'♔'	
+'♕'
+'♖'
+'♗'
+'♘'	
+'♙'	
+'♚'	
+'♛'	
+'♜'	
+'♝'	
+'♞'	
+'♟' 
+"""
+
 
 # ---------------------------------------------------------
 # STYLE 1: SOLID BOX-DRAW GRID (no ANSI colors)
