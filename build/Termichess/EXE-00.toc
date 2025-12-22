@@ -130,7 +130,7 @@
  [],
  False,
  False,
- 1765971176,
+ 1766019255,
  [('run.exe',
    'C:\\Users\\aarin\\PycharmProjects\\chess\\.venv\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',
    'EXECUTABLE')],
