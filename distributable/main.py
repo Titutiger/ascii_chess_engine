@@ -22,7 +22,7 @@ print('~Aarin and Ojas')
 print()
 print()
 time.sleep(1)
-
+                                            # add SAN and start-end notation thing
 
 print("Terminal Chess — 2 Player")
 print('`n` ~ UCI Notation\n'
