@@ -4,6 +4,9 @@ from textual.containers import Vertical, Horizontal, Center, ScrollableContainer
 from textual.screen import Screen
 from textual import events
 import time
+import subprocess
+import sys
+import os
 
 from game import main as execute
 
@@ -40,9 +43,12 @@ class TermiChess(App):
         width: 40;
     }
 
-    #style-selector {
-        width: 40;
+    #style-container{
         margin-bottom: 2;
+    }
+    
+    #style-select {
+        width: 40;
     }
 
     #submit-button {
@@ -64,6 +70,7 @@ class TermiChess(App):
         super().__init__()
         self.selected_mode = None
         self.difficulty_level = None
+        self.selected_style = "simple"
 
     class HelpScreen(Screen):
         def compose(self) -> ComposeResult:
@@ -138,9 +145,6 @@ class TermiChess(App):
                         id="mode-select"
                     )
 
-                with Center():
-                    yield Button('Help?', id='help')
-
                 with Vertical(id="difficulty-container"):
                     #with Center():
                     #    yield Static("Select difficulty level:", id=None)
@@ -152,34 +156,42 @@ class TermiChess(App):
                             id="difficulty-select"
                         )
 
-                """with Center():
-                    with Vertical(id="style-selector"):
-                        with Center():
-                            yield Select(
-                                # display    style      display   style
-                                [('colour', 'simple'), ('solid', 'solid')],
-                                prompt='Choose style...',
-                                id="style-selector"
-                            )"""
+
+                with Vertical(id="style-container"):
+                    with Center():
+                        yield Select(
+                            # display    style      display   style
+                            [('solid', '0'), ('colour', '1')],
+                            prompt='Choose style...',
+                            id="style-select"
+                        )
 
 
 
         yield Footer()
         with Center():
+            yield Button('Help?', id='help')
             yield Button("Start Game", id="submit-button")
 
     def on_select_changed(self, event: Select.Changed) -> None:
         if event.select.id == "mode-select":
             self.selected_mode = event.value
             difficulty_container = self.query_one("#difficulty-container")
+            style_container = self.query_one("#style-container")
             if event.value == "stockfish":
                 difficulty_container.display = True
+                style_container.display = True
             else:
                 difficulty_container.display = False
                 self.difficulty_level = None
+                style_container.display = True
 
         elif event.select.id == "difficulty-select":
             self.difficulty_level = event.value
+
+        elif event.select.id == "style-select":
+            self.selected_style = event.value
+
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == 'help':
@@ -190,6 +202,10 @@ class TermiChess(App):
                 self.notify("Starting local game against another player!")
                 # Here you would start the local game
                 #---------------------------------------------------------------------------------------------------------
+                time.sleep(1)
+                #self.exit()
+                time.sleep(1)
+                os.system(f'start cmd /k python game.py {self.selected_style}')
 
             elif self.selected_mode == "stockfish":
                 if self.difficulty_level:
