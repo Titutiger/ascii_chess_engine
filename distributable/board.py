@@ -54,7 +54,7 @@ def print_solid_board(board: chess.Board, flipped: bool = False) -> None:
     print("     " + "┗━━━━━━━━" + "┻━━━━━━━━" * 7 + "┛")
     print()
     print(f"\nTurn: {'White' if board.turn else 'Black'}")
-    print("Enter move (e.g., e4, Nf3, e2e4) or 'quit':")
+    print("Enter move (e.g., e4, Nf3 or 'quit':")
 
 
 # ---------------------------------------------------------
@@ -92,7 +92,7 @@ def print_simple_board(board: chess.Board, term_width: int = 80) -> None:
     print()
 
     print(f"\nTurn: {'White' if board.turn else 'Black'}")
-    print("Enter move (e.g., e4, Nf3, e2e4) or 'quit':")
+    print("Enter move (e.g., e4, Nf3 or 'quit':")
 
 
 # ---------------------------------------------------------

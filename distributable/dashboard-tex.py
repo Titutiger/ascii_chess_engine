@@ -200,12 +200,11 @@ class TermiChess(App):
         elif event.button.id == "submit-button":
             if self.selected_mode == "local":
                 self.notify("Starting local game against another player!")
-                # Here you would start the local game
-                #---------------------------------------------------------------------------------------------------------
                 time.sleep(1)
                 #self.exit()
                 time.sleep(1)
-                os.system(f'start cmd /k python game.py {self.selected_style}')
+                #os.system(f'start cmd /k python game.py {self.selected_style}') ----------------------------------------------------------------------
+                #os.system(f'start cmd /k python board_tex.py') ---------------------------------------------------------------------------------------
 
             elif self.selected_mode == "stockfish":
                 if self.difficulty_level:
