@@ -29,21 +29,22 @@ class TermiChess(App):
         color: white;
     }
 
+    #interface-select {
+        width: 40;
+        margin-bottom: 2;
+    }
+
     #mode-select {
         width: 40;
         margin-bottom: 2;
     }
 
-    #difficulty-container {
-        display: none;
+    #interface-container{
         margin-bottom: 2;
     }
 
-    #difficulty-select {
-        width: 40;
-    }
-
     #style-container{
+        display: none;
         margin-bottom: 2;
     }
     
@@ -71,6 +72,7 @@ class TermiChess(App):
         self.selected_mode = None
         self.difficulty_level = None
         self.selected_style = "simple"
+        self.interface_value = None
 
     class HelpScreen(Screen):
         def compose(self) -> ComposeResult:
@@ -140,22 +142,17 @@ class TermiChess(App):
 
                 with Center():
                     yield Select(
+                        [('TUI (Graphical)', 'ui'), ('CMD (Text Based)', 'text')],
+                        prompt='Choose interface...',
+                        id='interface-select'
+                    )
+
+                with Center():
+                    yield Select(
                         [("against player (local)", "local"), ("against machine (stockfish)", "stockfish")],
                         prompt="Choose game mode...",
                         id="mode-select"
                     )
-
-                with Vertical(id="difficulty-container"):
-                    #with Center():
-                    #    yield Static("Select difficulty level:", id=None)
-                    with Center():
-                        yield Select(
-                            [("Beginner (800)", "800"), ("Easy (1000)", "1000"), ("Medium (1200)", "1200"),
-                             ("Hard (1400)", "1400"), ("Expert (1600)", "1600"), ("Master (1800)", "1800")],
-                            prompt="Choose difficulty...",
-                            id="difficulty-select"
-                        )
-
 
                 with Vertical(id="style-container"):
                     with Center():
@@ -166,32 +163,30 @@ class TermiChess(App):
                             id="style-select"
                         )
 
-
-
         yield Footer()
         with Center():
             yield Button('Help?', id='help')
             yield Button("Start Game", id="submit-button")
 
     def on_select_changed(self, event: Select.Changed) -> None:
-        if event.select.id == "mode-select":
-            self.selected_mode = event.value
-            difficulty_container = self.query_one("#difficulty-container")
+        # Interface selection (THIS controls style visibility)
+        if event.select.id == "interface-select":
             style_container = self.query_one("#style-container")
-            if event.value == "stockfish":
-                difficulty_container.display = True
-                style_container.display = True
-            else:
-                difficulty_container.display = False
-                self.difficulty_level = None
-                style_container.display = True
 
-        elif event.select.id == "difficulty-select":
-            self.difficulty_level = event.value
+            if event.value == "text":  # CMD
+                style_container.display = True
+                self.interface_value = 'text'
+            else:  # ui
+                style_container.display = False
+                self.interface_value = 'ui'
 
+        # Game mode selection
+        elif event.select.id == "mode-select":
+            self.selected_mode = event.value
+
+        # Style selection
         elif event.select.id == "style-select":
             self.selected_style = event.value
-
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == 'help':
@@ -199,12 +194,15 @@ class TermiChess(App):
 
         elif event.button.id == "submit-button":
             if self.selected_mode == "local":
-                self.notify("Starting local game against another player!")
-                time.sleep(1)
+                self.notify("Starting local game against another player!") # Cool feature!
+                time.sleep(4)
                 #self.exit()
-                time.sleep(1)
-                #os.system(f'start cmd /k python game.py {self.selected_style}') ----------------------------------------------------------------------
-                #os.system(f'start cmd /k python board_tex.py') ---------------------------------------------------------------------------------------
+                if self.interface_value == 'text':
+                    os.system(f'start cmd /k python game.py {self.selected_style}')
+                #os.system(f'start cmd /k python game.py {self.selected_style}') ---------------------------------------
+                else:
+                    os.system(f'start cmd /k python board_tex.py')
+                #os.system(f'start cmd /k python board_tex.py') --------------------------------------------------------
 
             elif self.selected_mode == "stockfish":
                 if self.difficulty_level:
