@@ -6,20 +6,20 @@ ___
 ###### 12/11/2025
 ___
 ### Aarin:
-- [ ] Design overall project structure and modules
-- [ ] Implement commandline argument parser
+- [x] Design overall project structure and modules
+- [ ] Implement commandline argument parser (DEPRECATED)
 - [ ] Implement AI engine (stockfish) for `pvm`
-- [ ] Implement chess notation as user input
-- [ ] Implement special moves like `en passant, castling, pawn promotion, etc...`
+- [x] Implement chess notation as user input
+- [x] Implement special moves like `en passant, castling, pawn promotion, etc...`
  
 
 ___
 ### Ojas:
-- [ ] Create ASCII art for chess pieces procedurally
-- [ ] Develop terminal board refresh dynamically after moves
+- [x] Create ASCII art for chess pieces procedurally
+- [x] Develop terminal board refresh dynamically after moves
 - [ ] Write game loop for `pvp`
-- [ ] Integrate basic move rules and legality checks
-- [ ] Handle game conditions like `checkmate`, `stalemate` and `draw`
+- [x] Integrate basic move rules and legality checks
+- [x] Handle game conditions like `checkmate`, `stalemate` and `draw`
 
 ___
 
