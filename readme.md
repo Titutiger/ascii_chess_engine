@@ -19,14 +19,33 @@ libraries_used: dict = {
 Download the .zip from
 <a href='https://github.com/Titutiger/ascii_chess_engine'>github</a> and extracted.
 Provided that python is installed, remember to execute:
+
+Firstly, go into the virtual environment via making one.
+On VS CODE, select the python version at the bottom right, and then select `create virtual environment`.
+Then, it will take some time and after that, your virtual environment is set up.
+
+The terminal prompt should start with `(.venv)`. If it doesn't, then execute every
+statement with this:
+```commandline
+.venv\Scripts\python ...
+```
 ```commandline
 python -m pip install -r requirements.txt
 ```
 And once that is done, do execute:
 ```commandline
 python distributable/dashboard-tex.py
+
+OR
+.venv\Scripts\python distributable/dashboard-tex.py
 ```
 
+
+IF THE NORMAL `board_tex.py` doesn't work, then use:
+
+```commandline
+python distributable/board_tex_ascii.py
+```
 
 ___
 
