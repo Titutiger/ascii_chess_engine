@@ -45,10 +45,6 @@ repo/
   
   venv/
     ...
-  build/
-    ...
-  dist/
-    ...
   distributable/
     board.py
     board_tex.py
