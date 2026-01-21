@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a4c7c70d-d58c-482b-8274-84398a0eae7a" name="Changes" comment="Changed the file structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +49,7 @@
     "Python.board.executor": "Run",
     "Python.board_tex (1).executor": "Run",
     "Python.board_tex.executor": "Run",
+    "Python.board_tex_ascii.executor": "Run",
     "Python.conglomerate.executor": "Run",
     "Python.dashboard-tex (1).executor": "Run",
     "Python.dashboard-tex.executor": "Run",
@@ -68,7 +70,7 @@
       <recent name="C:\Users\aarin\PycharmProjects\chess\src\utils" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.board_tex (1)">
+  <component name="RunManager" selected="Python.board_tex_ascii">
     <configuration name="SETUP" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="chess" />
       <option name="ENV_FILES" value="" />
@@ -113,7 +115,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="board_tex" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="board_tex_ascii" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="chess" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -122,14 +124,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/distributable" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\aarin\PycharmProjects\chess\distributable\board_tex.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/distributable/board_tex_ascii.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
@@ -180,19 +182,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.board_tex_ascii" />
       <item itemvalue="Python.dashboard-tex (1)" />
       <item itemvalue="Python.SETUP" />
       <item itemvalue="Python.board_tex (1)" />
-      <item itemvalue="Python.board_tex" />
       <item itemvalue="Python.dashboard-tex" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.board_tex_ascii" />
         <item itemvalue="Python.board_tex (1)" />
         <item itemvalue="Python.dashboard-tex (1)" />
         <item itemvalue="Python.dashboard-tex" />
         <item itemvalue="Python.SETUP" />
-        <item itemvalue="Python.board_tex" />
       </list>
     </recent_temporary>
   </component>
