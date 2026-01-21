@@ -1,0 +1,5 @@
+colorama
+chess
+textual
+rich
+python-chess

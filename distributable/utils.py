@@ -40,3 +40,35 @@ def get_terminal_size() -> Tuple[int, int]:
     except OSError:
         return 80, 24
 
+import subprocess
+import sys
+import os
+
+def resource_path(relative_path: str) -> str:
+    """
+    Works both in:
+    - normal python
+    - PyInstaller --onedir exe
+    """
+    if getattr(sys, "frozen", False):
+        base_path = os.path.dirname(sys.executable)
+    else:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
+    return os.path.join(base_path, relative_path)
+
+
+def run_in_new_cmd(script_name: str, *args):
+    script_path = resource_path(script_name)
+
+    subprocess.Popen(
+        [
+            "cmd.exe",
+            "/k",
+            sys.executable,
+            script_path,
+            *args,
+        ],
+        creationflags=subprocess.CREATE_NEW_CONSOLE,
+        cwd=os.path.dirname(script_path),
+    )

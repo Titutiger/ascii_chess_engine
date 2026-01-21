@@ -9,6 +9,10 @@ import sys
 import os
 
 from game import main as execute
+from utils import run_in_new_cmd
+
+
+
 
 class TermiChess(App):
     CSS = """
@@ -198,11 +202,13 @@ class TermiChess(App):
                 time.sleep(4)
                 #self.exit()
                 if self.interface_value == 'text':
-                    os.system(f'start cmd /k python game.py {self.selected_style}')
-                #os.system(f'start cmd /k python game.py {self.selected_style}') ---------------------------------------
+                    #os.system(f'start cmd /k python game.py {self.selected_style}')
+                    run_in_new_cmd('game.py', self.selected_style)
+
                 else:
-                    os.system(f'start cmd /k python board_tex.py')
-                #os.system(f'start cmd /k python board_tex.py') --------------------------------------------------------
+                    #os.system(f'start cmd /k python board_tex.py')
+                    run_in_new_cmd('board_tex.py')
+
 
             elif self.selected_mode == "stockfish":
                 if self.difficulty_level:
