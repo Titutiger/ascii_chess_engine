@@ -10,3 +10,7 @@ user will enter SAN Notation.
 It will be converted to FEN.
 Checks if is legal.
 converts back to SAN and displays it to the user
+
+
+Make e.p for TUI
+and add promotion for TUI
