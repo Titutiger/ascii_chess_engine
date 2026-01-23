@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4c7c70d-d58c-482b-8274-84398a0eae7a" name="Changes" comment="Changed the file structure">
+      <change afterPath="$PROJECT_DIR$/tst.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/distributable/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/distributable/board.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ideas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ideas.txt" afterDir="false" />
@@ -71,7 +72,7 @@
       <recent name="C:\Users\aarin\PycharmProjects\chess\src\utils" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.board">
+  <component name="RunManager" selected="Python.game">
     <configuration name="board" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="chess" />
       <option name="ENV_FILES" value="" />
@@ -160,7 +161,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="dashboard-tex" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="chess" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -173,29 +174,29 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/distributable/dashboard-tex.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/distributable/game.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.game" />
       <item itemvalue="Python.board" />
       <item itemvalue="Python.board_tex_ascii" />
       <item itemvalue="Python.dashboard-tex (1)" />
       <item itemvalue="Python.board_tex (1)" />
-      <item itemvalue="Python.dashboard-tex" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.game" />
         <item itemvalue="Python.board" />
         <item itemvalue="Python.board_tex_ascii" />
         <item itemvalue="Python.board_tex (1)" />
         <item itemvalue="Python.dashboard-tex (1)" />
-        <item itemvalue="Python.dashboard-tex" />
       </list>
     </recent_temporary>
   </component>

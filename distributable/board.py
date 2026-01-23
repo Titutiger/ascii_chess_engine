@@ -22,7 +22,7 @@ ascii chess charchters
 # STYLE 1: SOLID BOX-DRAW GRID (no ANSI colors)
 # ---------------------------------------------------------
 def print_solid_board(board: chess.Board, flipped: bool = False) -> None:
-    files: str = 'A  B  D  E  F G H'
+    files: str = 'A  B C D E F  G H'
     ranks = range(8, 0, -1)
     if flipped:
         files = files[::-1]
