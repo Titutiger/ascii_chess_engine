@@ -1,5 +1,5 @@
 # TermiChess
-#### Video Demo: <url>
+#### Video Demo: <https://drive.google.com/file/d/186m1l3tpF0DdniCpr88x13E3xfZy0fDg/view?usp=sharing>
 
 ###### Project by Aarin J (GitHub: Titutiger)
 
