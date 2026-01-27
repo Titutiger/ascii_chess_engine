@@ -86,11 +86,17 @@ def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
 def draw_board(board):
+    flip = not board.turn  # flip when Black's turn
+
+    ranks = range(7, -1, -1) if not flip else range(8)
+    files = range(8) if not flip else range(7, -1, -1)
+
     print("┏━━━━━━━━━" + "┳━━━━━━━━━"*7 + "┓")
-    for rank in range(7, -1, -1):
+
+    for rank in ranks:
         for row in range(3):
             print("┃", end="")
-            for file in range(8):
+            for file in files:
                 sq = chess.square(file, rank)
                 piece = board.piece_at(sq)
 
@@ -101,15 +107,21 @@ def draw_board(board):
                 else:
                     print("         ┃", end="")
 
-            # print rank number on the middle row
             if row == 1:
                 print(f" {rank+1}")
             else:
                 print()
-        if rank != 0:
+
+        if rank != (0 if not flip else 7):
             print("┣━━━━━━━━━" + "╋━━━━━━━━━"*7 + "┫")
+
     print("┗━━━━━━━━━" + "┻━━━━━━━━━"*7 + "┛")
-    print("     a         b         c         d         e         f         g         h")
+
+    files_label = ["a","b","c","d","e","f","g","h"]
+    if flip:
+        files_label.reverse()
+
+    print("  " + "".join(f"   {f}      " for f in files_label))
 
 board = chess.Board()
 history = []
