@@ -3,8 +3,8 @@ import os
 import time
 
 UNICODE_PIECES = {
-    'k': '♔', 'q': '♕', 'r': '♖', 'b': '♗', 'n': '♘', 'p': '♙',
-    'K': '♚', 'Q': '♛', 'R': '♜', 'B': '♝', 'N': '♞', 'P': '♙'
+    'K': '♔', 'Q': '♕', 'R': '♖', 'B': '♗', 'N': '♘', 'P': '♙',
+    'k': '♚', 'q': '♛', 'r': '♜', 'b': '♝', 'n': '♞', 'p': '♙'
 }
 
 YELLOW = "\033[93m"
@@ -36,6 +36,74 @@ def start_of_game():
     print("Let the battle begin!")
     print("=============================================")
     time.sleep(1)
+
+def command_menu():
+    print("\n=== COMMAND MENU ===\n")
+
+    print("Move Input:")
+    print("  e4, Nf3, Qxe7, O-O, e2e4")
+
+    print("\nCommands:")
+    print("  q   → Quit game")
+    print("  u   → Undo last move")
+    print("  l   → Show all legal moves")
+    print("  h   → Show SAN notation help")
+    print("  hh  → Show this command menu")
+
+    print("\nPiece Help Commands:")
+    print("  hP  → Pawn help")
+    print("  hN  → Knight help")
+    print("  hB  → Bishop help")
+    print("  hR  → Rook help")
+    print("  hQ  → Queen help")
+    print("  hK  → King help")
+
+    print("\n====================\n")
+
+
+def piece_help(piece):
+    piece = piece.upper()
+
+    print("\n=== PIECE HELP ===\n")
+
+    if piece == "P":
+        print("Pawn (P):")
+        print("- Moves forward 1 square")
+        print("- Captures diagonally")
+        print("- Can move 2 squares from starting position")
+        print("- Promotes on last rank (e8 or e1)")
+        print("- Can capture en passant")
+
+    elif piece == "N":
+        print("Knight (N):")
+        print("- Moves in an L-shape: 2 squares + 1 square")
+        print("- Can jump over other pieces")
+
+    elif piece == "B":
+        print("Bishop (B):")
+        print("- Moves diagonally any number of squares")
+
+    elif piece == "R":
+        print("Rook (R):")
+        print("- Moves horizontally or vertically any number of squares")
+        print("- Used in castling")
+
+    elif piece == "Q":
+        print("Queen (Q):")
+        print("- Moves like a rook + bishop combined")
+        print("- Any number of squares in any direction")
+
+    elif piece == "K":
+        print("King (K):")
+        print("- Moves 1 square in any direction")
+        print("- Special move: castling (O-O or O-O-O)")
+        print("- Cannot move into check")
+
+    else:
+        print("Unknown piece type!")
+        print("Use: hP, hN, hB, hR, hQ, hK")
+
+    print("\n==================\n")
 
 def help():
     print("\n=== CHESS ALGEBRAIC NOTATION (SAN) RULES ===\n")
@@ -85,9 +153,20 @@ def help():
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
-def draw_board(board):
-    flip = not board.turn  # flip when Black's turn
+def end_of_game():
+    clear()
+    draw_board(board, True)
+    print("\nFinal Move history:")
+    for i in range(0, len(history), 2):
+        w = history[i]
+        b = history[i+1] if i+1 < len(history) else ""
+        print(f"{i//2+1}. {w} {b}")
 
+def draw_board(board, end = False):
+    if end:
+        flip = board.turn  
+    else:
+        flip = not board.turn # flip when Black's turn
     ranks = range(7, -1, -1) if not flip else range(8)
     files = range(8) if not flip else range(7, -1, -1)
 
@@ -123,6 +202,35 @@ def draw_board(board):
 
     print("  " + "".join(f"   {f}      " for f in files_label))
 
+def game_over():
+    if board.is_checkmate():
+        end_of_game()
+        print("\nCHECKMATE!")
+        print("Winner:", "Black" if board.turn == chess.WHITE else "White")
+        return True
+
+    if board.is_stalemate():
+        end_of_game()
+        print("\nSTALEMATE! Draw.")
+        return True
+
+    if board.is_insufficient_material():
+        end_of_game()
+        print("\nDraw: Insufficient material.")
+        return True
+
+    if board.can_claim_threefold_repetition():
+        end_of_game()
+        print("\nDraw: Threefold repetition.")
+        return True
+
+    if board.can_claim_fifty_moves():
+        end_of_game()
+        print("\nDraw: 50-move rule.")
+        return True
+
+    return False
+
 board = chess.Board()
 history = []
 clear()
@@ -138,44 +246,62 @@ while True:
         b = history[i+1] if i+1 < len(history) else ""
         print(f"{i//2+1}. {w} {b}")
 
-    if board.is_checkmate():
-        print("\nCHECKMATE!")
-        print("Winner:", "Black" if board.turn else "White")
-        break
-
-    if board.is_stalemate():
-        print("\nSTALEMATE! Draw.")
-        break
-
-    if board.is_insufficient_material():
-        print("\nDraw: Insufficient material.")
+    if game_over():
         break
 
     if board.is_check():
         print("\nCHECK!")
 
     print("\nTurn:", "White" if board.turn else "Black")
-    move_input = input("Enter move (e4, Nf3, O-O, e2e4) or q(to quit) or h(to help): ").strip()
+    move_input = input(
+        "Enter move | u(undo) q(quit) l(legal) h(help) hh(menu): "
+    ).strip()
 
     if move_input.lower() == "q":
         break
 
+    if move_input.lower() == "u":
+        if len(board.move_stack) > 0 and len(history) > 0:
+            board.pop()
+            history.pop()
+        else:
+            input("No moves to undo! Press Enter...")
+        continue
+
+    if move_input.lower() == 'l':
+        for i, move in enumerate(board.legal_moves):
+            print(f"{i}.", board.san(move))
+        input("Press Enter to continue game\n")
+        continue
+
     if move_input.lower() == "h":
         clear()
         help()
-        input("Press Enter to continue game\n")
+        input("Press Enter to continue...\n")
         continue
+
+    if move_input.lower() == "hh":
+        clear()
+        command_menu()
+        input("Press Enter to continue...\n")
+        continue
+
+    if len(move_input) == 2 and move_input[0].lower() == "h":
+        piece_letter = move_input[1].upper()
+        if piece_letter in ["P", "N", "B", "R", "Q", "K"]:
+            clear()
+            piece_help(piece_letter)
+            input("Press Enter to continue...\n")
+            continue
     try:
         move = board.parse_san(move_input)
     except:
         try:
             move = chess.Move.from_uci(move_input)
         except:
-            input("Invalid move format! Press Enter...")
+            input("Illegal move! Press Enter...")
             continue
 
     if move in board.legal_moves:
         history.append(board.san(move))
         board.push(move)
-    else:
-        input("Illegal move! Press Enter...")
