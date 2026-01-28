@@ -2,6 +2,8 @@ import chess
 import os
 import time
 
+# ================= CONSTANTS =================
+
 UNICODE_PIECES = {
     'K': '♔', 'Q': '♕', 'R': '♖', 'B': '♗', 'N': '♘', 'P': '♙',
     'k': '♚', 'q': '♛', 'r': '♜', 'b': '♝', 'n': '♞', 'p': '♙'
@@ -11,31 +13,43 @@ YELLOW = "\033[93m"
 RED = "\033[91m"
 RESET = "\033[0m"
 
-def start_of_game():
-    print("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓")
-    print("┃      WELCOME TO  T E R M I C H E S S     ┃")
-    print("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")
-    time.sleep(1)
+# ================= UTILS =================
+
+def clear():
+    os.system("cls" if os.name == "nt" else "clear")
+
+# ================= UI =====================
+
+def start_of_game(t: int = 1):
+    banner = """
+    ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+    ┃      WELCOME TO  T E R M I C H E S S     ┃
+    ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+    """
+    print(banner)
+    time.sleep(t)
     print("A two-player chess game in your terminal.")
-    time.sleep(1)
+    time.sleep(t)
     print("How to play:")
-    time.sleep(1)
+    time.sleep(t)
     print("  • Enter moves using SAN notation (e.g., e4, Nf3, Qxe7)")
-    time.sleep(1)
+    time.sleep(t)
     print("  • White moves first")
-    time.sleep(1)
+    time.sleep(t)
     print("  • Type 'quit' to exit the game")
-    time.sleep(1)
+    time.sleep(t+2)
     print("Battle is starting in")
     print("3")
-    time.sleep(1)
+    time.sleep(t)
     print("2")
-    time.sleep(1)
+    time.sleep(t)
     print("1")
-    time.sleep(1)
+    time.sleep(t)
     print("Let the battle begin!")
     print("=============================================")
-    time.sleep(1)
+    time.sleep(t)
+
+# ================= HELPS =====================
 
 def command_menu():
     print("\n=== COMMAND MENU ===\n")
@@ -149,9 +163,31 @@ def help():
 
     print("=== END OF SAN RULES ===\n")
 
+def get_legal_moves(board: chess.Board, piece_char: str) -> list[str]:
+    """Return SAN moves for a given piece type"""
 
-def clear():
-    os.system("cls" if os.name == "nt" else "clear")
+    piece_map = {
+        "p": chess.PAWN,
+        "n": chess.KNIGHT,
+        "b": chess.BISHOP,
+        "r": chess.ROOK,
+        "q": chess.QUEEN,
+        "k": chess.KING,
+    }
+
+    pc = piece_char.lower()
+    if pc not in piece_map:
+        raise ValueError("Invalid piece")
+
+    pt = piece_map[pc]
+
+    return [
+        board.san(m)
+        for m in board.legal_moves
+        if board.piece_at(m.from_square)
+        and board.piece_at(m.from_square).piece_type == pt
+    ]
+
 
 def end_of_game():
     clear()
@@ -162,9 +198,10 @@ def end_of_game():
         b = history[i+1] if i+1 < len(history) else ""
         print(f"{i//2+1}. {w} {b}")
 
-def draw_board(board, end = False):
+def draw_board(board, end=False):
+
     if end:
-        flip = board.turn  
+        flip = board.turn
     else:
         flip = not board.turn # flip when Black's turn
     ranks = range(7, -1, -1) if not flip else range(8)
@@ -202,6 +239,7 @@ def draw_board(board, end = False):
 
     print("  " + "".join(f"   {f}      " for f in files_label))
 
+
 def game_over():
     if board.is_checkmate():
         end_of_game()
@@ -236,7 +274,7 @@ history = []
 clear()
 start_of_game()
 
-while True:
+while not board.is_game_over():
     clear()
     draw_board(board)
 
@@ -256,11 +294,13 @@ while True:
     move_input = input(
         "Enter move | u(undo) q(quit) l(legal) h(help) hh(menu): "
     ).strip()
+    if move_input and move_input[0].isalpha():
+        move_input = move_input[0].upper() + move_input[1:]
 
-    if move_input.lower() == "q":
+    if move_input == "q":
         break
 
-    if move_input.lower() == "u":
+    if move_input == "u":
         if len(board.move_stack) > 0 and len(history) > 0:
             board.pop()
             history.pop()
@@ -268,25 +308,35 @@ while True:
             input("No moves to undo! Press Enter...")
         continue
 
-    if move_input.lower() == 'l':
+    if move_input == 'l':
         for i, move in enumerate(board.legal_moves):
             print(f"{i}.", board.san(move))
         input("Press Enter to continue game\n")
         continue
 
-    if move_input.lower() == "h":
+    if move_input == 'h':
         clear()
         help()
-        input("Press Enter to continue...\n")
+        input('Press enter to continue the game\n')
         continue
 
-    if move_input.lower() == "hh":
+    if move_input.startswith("h") and len(move_input) == 2:
+        piece = move_input[1].upper()
+        if piece in "PNBRQK":
+            clear()
+            piece_help(piece)
+            print("\nLegal moves:")
+            print(get_legal_moves(board, piece))
+            input("Press Enter...")
+        continue
+
+    if move_input == "hh":
         clear()
         command_menu()
         input("Press Enter to continue...\n")
         continue
 
-    if len(move_input) == 2 and move_input[0].lower() == "h":
+    if len(move_input) == 2 and move_input[0] == "h":
         piece_letter = move_input[1].upper()
         if piece_letter in ["P", "N", "B", "R", "Q", "K"]:
             clear()
@@ -295,13 +345,9 @@ while True:
             continue
     try:
         move = board.parse_san(move_input)
-    except:
-        try:
-            move = chess.Move.from_uci(move_input)
-        except:
-            input("Illegal move! Press Enter...")
-            continue
+    except ValueError:
+        print("Illegal move!")
+        continue
 
-    if move in board.legal_moves:
-        history.append(board.san(move))
-        board.push(move)
+    board.push(move)
+

@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4c7c70d-d58c-482b-8274-84398a0eae7a" name="Changes" comment="Changed the file structure">
-      <change afterPath="$PROJECT_DIR$/distributable/simple.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tst.md" beforeDir="false" afterPath="$PROJECT_DIR$/tst.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Termichess.py" beforeDir="false" afterPath="$PROJECT_DIR$/Termichess.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,11 +182,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.game" />
       <item itemvalue="Python.board" />
+      <item itemvalue="Python.board_tex (1)" />
       <item itemvalue="Python.board_tex_ascii" />
       <item itemvalue="Python.dashboard-tex (1)" />
-      <item itemvalue="Python.board_tex (1)" />
+      <item itemvalue="Python.game" />
     </list>
     <recent_temporary>
       <list>
