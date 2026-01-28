@@ -13,6 +13,15 @@ YELLOW = "\033[93m"
 RED = "\033[91m"
 RESET = "\033[0m"
 
+piece_map = { # associates `p` -> chess.PAWN, etc... 
+        "p": chess.PAWN,
+        "n": chess.KNIGHT,
+        "b": chess.BISHOP,
+        "r": chess.ROOK,
+        "q": chess.QUEEN,
+        "k": chess.KING,
+    }
+
 # ================= UTILS =================
 
 def clear():
@@ -71,6 +80,14 @@ def command_menu():
     print("  hR  → Rook help")
     print("  hQ  → Queen help")
     print("  hK  → King help")
+
+    print("\n Show piece legal moves: ")
+    print("  lP  → Show all Pawn legal moves")
+    print("  lP  → Show all Pawn legal moves")
+    print("  lP  → Show all Pawn legal moves")
+    print("  lP  → Show all Pawn legal moves")
+    print("  lP  → Show all Pawn legal moves")
+    print("  lP  → Show all Pawn legal moves")
 
     print("\n====================\n")
 
@@ -165,14 +182,6 @@ def help():
 
 def get_legal_moves(board: chess.Board, piece_char: str | None = None) -> list[str]:
     """Returns a list of legal moves for that specific piece type"""
-    piece_map = { # associates `p` -> chess.PAWN, etc...
-        "p": chess.PAWN,
-        "n": chess.KNIGHT,
-        "b": chess.BISHOP,
-        "r": chess.ROOK,
-        "q": chess.QUEEN,
-        "k": chess.KING,
-    }
 
     # No piece → all moves (REDUNDANT)
     #if piece_char is None:
@@ -322,6 +331,21 @@ while True:
             print(f"{i}.", board.san(move))
         input("Press Enter to continue game\n")
         continue
+
+    #Displays legal moves for a specific piece
+    if move_input.lower().startswith('l') and len(move_input) == 2: 
+        clear()
+        pt = piece_map.get(move_input[1].lower())   
+        if pt is None:
+            print("Invalid piece letter.")
+            continue
+
+        legal_moves = [
+            board.san(m)
+            for m in board.legal_moves
+            if board.piece_at(m.from_square)
+            and board.piece_at(m.from_square).piece_type == pt
+        ]
 
     # ---- HELP SYSTEM ----
 
