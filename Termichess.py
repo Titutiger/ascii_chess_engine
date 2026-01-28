@@ -163,10 +163,9 @@ def help():
 
     print("=== END OF SAN RULES ===\n")
 
-def get_legal_moves(board: chess.Board, piece_char: str) -> list[str]:
-    """Return SAN moves for a given piece type"""
-
-    piece_map = {
+def get_legal_moves(board: chess.Board, piece_char: str | None = None) -> list[str]:
+    """Returns a list of legal moves for that specific piece type"""
+    piece_map = { # associates `p` -> chess.PAWN, etc...
         "p": chess.PAWN,
         "n": chess.KNIGHT,
         "b": chess.BISHOP,
@@ -175,18 +174,24 @@ def get_legal_moves(board: chess.Board, piece_char: str) -> list[str]:
         "k": chess.KING,
     }
 
+    # No piece → all moves (REDUNDANT)
+    #if piece_char is None:
+    #    return [board.san(m) for m in board.legal_moves]
+
     pc = piece_char.lower()
     if pc not in piece_map:
-        raise ValueError("Invalid piece")
+        return [] # returns none if the string holds a letter which is not
+                  # a chess piece.
 
-    pt = piece_map[pc]
+    pt = piece_map[pc] # converts `p` -> chess.PAWN
 
     return [
-        board.san(m)
-        for m in board.legal_moves
-        if board.piece_at(m.from_square)
-        and board.piece_at(m.from_square).piece_type == pt
+        board.san(m) # returns SAN for piece move
+        for m in board.legal_moves # for all legal moves
+        if board.piece_at(m.from_square) # checks what is moving and where
+        and board.piece_at(m.from_square).piece_type == pt # checks the piece is in pt
     ]
+
 
 
 def end_of_game():
@@ -295,22 +300,24 @@ while True:
         "Enter move | u(undo) q(quit) l(legal) h(help) hh(menu): "
     ).strip()
 
+    # handles quitting before move parsing because errors can be made.
     if move_input in ['q', 'quit', 'esc']:
         break
 
+    # parses the move
     if move_input and move_input[0] in "pnbrqk":
         move_input = move_input[0].upper() + move_input[1:]
 
 
     if move_input == "u":
         if len(board.move_stack) > 0 and len(history) > 0:
-            board.pop()
+            board.pop() # neat
             history.pop()
         else:
             input("No moves to undo! Press Enter...")
         continue
 
-    if move_input == 'l':
+    if move_input == 'l': # let's list of all legal moves for all pieces
         for i, move in enumerate(board.legal_moves):
             print(f"{i}.", board.san(move))
         input("Press Enter to continue game\n")
@@ -332,7 +339,7 @@ while True:
 
     if move_input.startswith("h") and len(move_input) == 2:
         piece = move_input[1].upper()
-        if piece in "pnbrk":
+        if piece in "PNBRK":
             clear()
             piece_help(piece)
             print("\nLegal moves:")
