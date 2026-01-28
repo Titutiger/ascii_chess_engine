@@ -199,11 +199,11 @@ def end_of_game():
         print(f"{i//2+1}. {w} {b}")
 
 def draw_board(board, end=False):
-
     if end:
-        flip = board.turn
+        flip = False
     else:
-        flip = not board.turn # flip when Black's turn
+        flip = not board.turn
+
     ranks = range(7, -1, -1) if not flip else range(8)
     files = range(8) if not flip else range(7, -1, -1)
 
@@ -274,7 +274,7 @@ history = []
 clear()
 start_of_game()
 
-while not board.is_game_over():
+while True:
     clear()
     draw_board(board)
 
@@ -294,11 +294,13 @@ while not board.is_game_over():
     move_input = input(
         "Enter move | u(undo) q(quit) l(legal) h(help) hh(menu): "
     ).strip()
-    if move_input and move_input[0].isalpha():
+
+    if move_input in ['q', 'quit', 'esc']:
+        break
+
+    if move_input and move_input[0] in "pnbrqk":
         move_input = move_input[0].upper() + move_input[1:]
 
-    if move_input == "q":
-        break
 
     if move_input == "u":
         if len(board.move_stack) > 0 and len(history) > 0:
@@ -314,21 +316,7 @@ while not board.is_game_over():
         input("Press Enter to continue game\n")
         continue
 
-    if move_input == 'h':
-        clear()
-        help()
-        input('Press enter to continue the game\n')
-        continue
-
-    if move_input.startswith("h") and len(move_input) == 2:
-        piece = move_input[1].upper()
-        if piece in "PNBRQK":
-            clear()
-            piece_help(piece)
-            print("\nLegal moves:")
-            print(get_legal_moves(board, piece))
-            input("Press Enter...")
-        continue
+    # ---- HELP SYSTEM ----
 
     if move_input == "hh":
         clear()
@@ -336,18 +324,35 @@ while not board.is_game_over():
         input("Press Enter to continue...\n")
         continue
 
-    if len(move_input) == 2 and move_input[0] == "h":
-        piece_letter = move_input[1].upper()
-        if piece_letter in ["P", "N", "B", "R", "Q", "K"]:
+    if move_input == "h":
+        clear()
+        help()
+        input('Press enter to continue the game\n')
+        continue
+
+    if move_input.startswith("h") and len(move_input) == 2:
+        piece = move_input[1].upper()
+        if piece in "pnbrk":
             clear()
-            piece_help(piece_letter)
-            input("Press Enter to continue...\n")
-            continue
+            piece_help(piece)
+            print("\nLegal moves:")
+            moves = get_legal_moves(board, piece)
+            if moves:
+                print(", ".join(moves))
+            else:
+                print("No legal moves.")
+            input("Press Enter...")
+        else:
+            print("Use: hP hN hB hR hQ hK")
+            input("Press Enter...")
+        continue
+
     try:
         move = board.parse_san(move_input)
     except ValueError:
         print("Illegal move!")
         continue
 
+    history.append(board.san(move))
     board.push(move)
 
