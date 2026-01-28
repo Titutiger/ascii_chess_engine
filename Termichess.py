@@ -355,4 +355,3 @@ while True:
 
     history.append(board.san(move))
     board.push(move)
-
