@@ -206,7 +206,7 @@ def end_of_game():
 
 def draw_board(board, end=False):
     if end:
-        flip = False
+        flip = board.turn
     else:
         flip = not board.turn
 
@@ -358,8 +358,7 @@ while True:
     try:
         move = board.parse_san(move_input)
     except ValueError:
-        print("Illegal move!")
+        input("Illegal move! Press Enter...")
         continue
-
     history.append(board.san(move))
     board.push(move)
